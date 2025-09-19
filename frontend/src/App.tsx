@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 
-const API_BASE = import.meta.env.VITE_API_BASE || (typeof window !== 'undefined' && window.location?.origin?.includes('localhost') ? 'http://localhost:8000' : 'http://localhost:8000')
+const API_BASE = import.meta.env.VITE_API_BASE || (typeof window !== 'undefined' && window.location?.origin?.includes('localhost') ? 'http://localhost:8000' : 'https://youtube-agent-backend-production.up.railway.app')
 const API_KEY = import.meta.env.VITE_API_KEY
 
 async function post<T>(path: string, body: unknown): Promise<T> {
@@ -44,6 +44,8 @@ export default function App() {
 
   // Debug info
   console.log('App loaded, API_BASE:', API_BASE, 'API_KEY:', API_KEY ? 'Set' : 'Not set')
+  console.log('Environment:', import.meta.env.MODE)
+  console.log('All env vars:', import.meta.env)
 
   const videoId = useMemo(() => {
     const id = extractYouTubeId(url)
