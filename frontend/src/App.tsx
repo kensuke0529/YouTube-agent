@@ -1,3 +1,20 @@
+import React from 'react'
+
+// Simple test version to debug white screen issue
+export default function App() {
+  return (
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h1>YouTube Learning AI - Test</h1>
+      <p>If you can see this, the React app is working!</p>
+      <p>Environment: {import.meta.env.MODE}</p>
+      <p>API Base: {import.meta.env.VITE_API_BASE || 'Not set'}</p>
+      <p>Current time: {new Date().toLocaleString()}</p>
+    </div>
+  )
+}
+
+// Original complex app code below - temporarily disabled
+/*
 import { useEffect, useMemo, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 
@@ -459,4 +476,5 @@ function ApiHealth({ onResult }: { onResult: (ok: boolean) => void }) {
   }, [onResult])
   return null
 }
+*/
 
