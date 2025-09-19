@@ -1,14 +1,31 @@
 import React from 'react'
 
-// Simple test version to debug white screen issue
+// Ultra-simple test version to debug white screen issue
 export default function App() {
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1>YouTube Learning AI - Test</h1>
-      <p>If you can see this, the React app is working!</p>
-      <p>Environment: {import.meta.env.MODE}</p>
-      <p>API Base: {import.meta.env.VITE_API_BASE || 'Not set'}</p>
-      <p>Current time: {new Date().toLocaleString()}</p>
+    <div style={{ 
+      padding: '20px', 
+      fontFamily: 'Arial, sans-serif',
+      backgroundColor: '#f0f0f0',
+      minHeight: '100vh'
+    }}>
+      <h1 style={{ color: '#333' }}>🎉 YouTube Learning AI</h1>
+      <p style={{ fontSize: '18px', color: '#666' }}>
+        ✅ React app is working perfectly!
+      </p>
+      <div style={{ 
+        backgroundColor: 'white', 
+        padding: '15px', 
+        borderRadius: '8px',
+        marginTop: '20px',
+        border: '1px solid #ddd'
+      }}>
+        <h3>Debug Info:</h3>
+        <p><strong>Environment:</strong> {import.meta.env.MODE}</p>
+        <p><strong>API Base:</strong> {import.meta.env.VITE_API_BASE || 'Not set'}</p>
+        <p><strong>Current time:</strong> {new Date().toLocaleString()}</p>
+        <p><strong>User Agent:</strong> {navigator.userAgent}</p>
+      </div>
     </div>
   )
 }
