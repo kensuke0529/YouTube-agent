@@ -105,10 +105,8 @@ class TokenManager:
         return self.usage.hourly_usage
     
     def check_text_length(self, text: str, operation: str = "general") -> bool:
-        """Check if text length is within limits"""
-        if operation == "question":
-            return len(text) <= self.max_question_length
-        return len(text) <= self.max_text_length
+        """Check if text length is within limits - RESTRICTIONS REMOVED"""
+        return True  # No length restrictions
     
     def estimate_tokens(self, text: str) -> int:
         """Rough token estimation (1 token ≈ 4 characters for English)"""

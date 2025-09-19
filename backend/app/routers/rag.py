@@ -30,7 +30,6 @@ class IngestResponse(BaseModel):
 
 class QuestionRequest(BaseModel):
     question: str
-    top_k: int = 5
 
 
 class Source(BaseModel):
@@ -84,12 +83,7 @@ def ingest(payload: IngestRequest):
 
 @router.post("/ask", response_model=AnswerResponse)
 def ask(payload: QuestionRequest, api_key: APIKey = Depends(require_api_key)):
-    # Check question length
-    if not token_manager.check_text_length(payload.question, "question"):
-        raise HTTPException(
-            status_code=400,
-            detail=f"Question too long. Maximum allowed: {token_manager.max_question_length} characters"
-        )
+    # Question length check removed - no restrictions
     
     # Estimate tokens for the question
     estimated_tokens = token_manager.estimate_tokens(payload.question) + 1000  # Add buffer for context
@@ -101,7 +95,7 @@ def ask(payload: QuestionRequest, api_key: APIKey = Depends(require_api_key)):
     
     store = _store()
     [q_vec] = embed_texts([payload.question])
-    results = store.search(q_vec, top_k=payload.top_k)
+    results = store.search(q_vec, top_k=5)
 
     context = "\n\n".join([f"Source {i+1}: {t}" for i, (t, _s, _m) in enumerate(results)])
     

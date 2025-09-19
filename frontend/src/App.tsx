@@ -72,31 +72,6 @@ export default function App() {
   }, [])
 
 
-  async function handleExtract() {
-    setError(null)
-    setBusy(true)
-    try {
-      const data = await post<{ text: string }>('/subtitles/extract', { url, language_code: 'en' })
-      setTranscript(data.text)
-    } catch (e: any) {
-      setError(e?.message || 'Failed to extract subtitles')
-    } finally {
-      setBusy(false)
-    }
-  }
-
-  async function handleSummarize() {
-    setError(null)
-    setBusy(true)
-    try {
-      const data = await post<{ summary: string }>('/summarize', { text: transcript, level })
-      setSummary(data.summary)
-    } catch (e: any) {
-      setError(e?.message || 'Failed to summarize')
-    } finally {
-      setBusy(false)
-    }
-  }
 
   async function handleExtractAndSummarize() {
     setError(null)
@@ -107,7 +82,6 @@ export default function App() {
       setProgress('🔄 Extracting subtitles from YouTube...')
       const data = await post<{ text: string; video_info: any; summary: string }>('/subtitles/extract-and-summarize', { 
         url, 
-        language_code: 'en',
         level 
       })
       
@@ -161,7 +135,7 @@ export default function App() {
     setBusy(true)
     try {
       setProgress('🔄 Searching knowledge base and generating answer...')
-      const data = await post<{ answer: string; sources: { text: string; score: number; metadata: any }[] }>('/rag/ask', { question, top_k: 5 })
+      const data = await post<{ answer: string; sources: { text: string; score: number; metadata: any }[] }>('/rag/ask', { question })
       setAnswer(data.answer)
       setSources(data.sources)
       setSuccess(`✅ Found answer using ${data.sources.length} sources from the knowledge base!`)

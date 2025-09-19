@@ -15,12 +15,7 @@ def _get_client() -> OpenAI:
 def summarize_text(text: str, level: str = "quick") -> str:
     """Summarize text with token usage restrictions"""
     
-    # Check text length limit
-    if not token_manager.check_text_length(text, "general"):
-        raise HTTPException(
-            status_code=400, 
-            detail=f"Text too long. Maximum allowed: {token_manager.max_text_length} characters"
-        )
+    # Text length check removed - no restrictions
     
     # Estimate token usage
     estimated_tokens = token_manager.estimate_tokens(text) + 500  # Add buffer for prompt and response
@@ -102,19 +97,7 @@ def embed_texts(texts: List[str]) -> List[List[float]]:
 def ask_question_with_context(question: str, context: str) -> Tuple[str, int, int]:
     """Ask a question with context, returning answer and token usage"""
     
-    # Check question length
-    if not token_manager.check_text_length(question, "question"):
-        raise HTTPException(
-            status_code=400, 
-            detail=f"Question too long. Maximum allowed: {token_manager.max_question_length} characters"
-        )
-    
-    # Check context length
-    if not token_manager.check_text_length(context, "general"):
-        raise HTTPException(
-            status_code=400, 
-            detail=f"Context too long. Maximum allowed: {token_manager.max_text_length} characters"
-        )
+    # Text length checks removed - no restrictions
     
     # Estimate token usage
     estimated_tokens = token_manager.estimate_tokens(question + context) + 200  # Add buffer
