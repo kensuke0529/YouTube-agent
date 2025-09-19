@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 
-const API_BASE = (import.meta as any).env?.VITE_API_BASE || (typeof window !== 'undefined' && window.location ? (window.location.origin.includes('localhost') ? 'http://localhost:8000' : window.location.origin) : 'http://localhost:8000')
-const API_KEY = (import.meta as any).env?.VITE_API_KEY
+const API_BASE = import.meta.env.VITE_API_BASE || (typeof window !== 'undefined' && window.location?.origin?.includes('localhost') ? 'http://localhost:8000' : 'http://localhost:8000')
+const API_KEY = import.meta.env.VITE_API_KEY
 
 async function post<T>(path: string, body: unknown): Promise<T> {
   const headers: Record<string, string> = { 'Content-Type': 'application/json' }
@@ -41,6 +41,9 @@ export default function App() {
   const [apiHealthy, setApiHealthy] = useState<boolean | null>(null)
   const [usageStats, setUsageStats] = useState<any>(null)
   const [progress, setProgress] = useState<string | null>(null)
+
+  // Debug info
+  console.log('App loaded, API_BASE:', API_BASE, 'API_KEY:', API_KEY ? 'Set' : 'Not set')
 
   const videoId = useMemo(() => {
     const id = extractYouTubeId(url)
