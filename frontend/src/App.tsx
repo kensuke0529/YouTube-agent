@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 
-const API_BASE = import.meta.env.VITE_API_BASE || (typeof window !== 'undefined' && window.location?.origin?.includes('localhost') ? 'http://localhost:8000' : 'https://youtube-agent-backend-production.up.railway.app')
+const API_BASE = import.meta.env.VITE_API_BASE || (typeof window !== 'undefined' && window.location?.origin?.includes('localhost') ? 'http://localhost:8000' : 'https://youtube-extracter-production.up.railway.app')
 const API_KEY = import.meta.env.VITE_API_KEY
 
 async function post<T>(path: string, body: unknown): Promise<T> {
